@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: roadrescue-backend
+    runtime: java
+    rootDir: server
+    plan: free
+    buildCommand: mvn -DskipTests package
+    startCommand: java -jar target/roadrescue-server-1.0.0.jar
+    healthCheckPath: /api/health
+    envVars:
+      - key: JAVA_VERSION
+        value: 21
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        value: https://roadrescue-frontend.onrender.com
+      - key: CLIENT_URLS
+        value: https://roadrescue-frontend.onrender.com
+    buildFilter:
+      paths:
+        - server/**
+        - package.json
+        - package-lock.json
+        - render.yaml
+
+  - type: web
+    name: roadrescue-frontend
+    runtime: static
+    rootDir: client
+    buildCommand: npm install --include=dev && npm run build
+    staticPublishPath: dist
+    buildFilter:
+      paths:
+        - client/**
+        - package.json
+        - package-lock.json
+        - render.yaml
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

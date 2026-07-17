@@ -1,0 +1,23 @@
+{
+  "name": "roadrescue",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev --workspace client\"",
+    "dev:server": "mvn -f server/pom.xml spring-boot:run",
+    "db:setup": "mvn -f server/pom.xml exec:java \"-Dexec.mainClass=app.roadrescue.tools.DatabaseSchemaSetup\"",
+    "build": "npm run build:server && npm run build --workspace client",
+    "build:server": "mvn -f server/pom.xml clean package",
+    "lint": "npm run build:server && npm run lint --workspace client",
+    "seed": "echo \"Seed data migration has moved from Prisma to database/Flyway-compatible SQL.\"",
+    "seed:reset": "echo \"Use your database tooling to reset a local schema, then run the Spring Boot app to apply Flyway migrations.\"",
+    "format": "npm run format --workspace client",
+    "start:server": "java -jar server/target/roadrescue-server-1.0.0.jar"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs and caches
+dist/
+build/
+coverage/
+client/dist/
+client/.angular/
+client/tsconfig.tsbuildinfo
+server/dist/
+server/target/
+**/target/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.local.example
+!.env.render.example
+!client/.env.example
+server/.env
+
+# Generated JavaScript from old frontend/backend builds
+client/src/**/*.js
+client/src/**/*.js.map
+
+# Local deployment notes, logs, and credentials
+prod/deployment/
+renderstartupinst.txt
+
+# Editor, OS, and agent-local files
+.agents/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Logs
+*.log
+.codex-*.log
+.roadrescue-start*.log
